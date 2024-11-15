@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.madang.manager.book.BookMapper">
+
+    <insert id="insBook">
+        Insert into book
+        set bookname = #{bookName}
+        , publisher = #{publisher}
+        , price = #{price}
+    </insert>
+
+    <select id="selBookList">
+        select bookid as bookId
+        ,bookname as bookName
+        ,publisher
+        ,price
+        From book
+        <if test = "searchText != null and searchText != ''"> <!-- 조건식 적는 문법 -->
+            where bookname like '%${searchText}%'
+
+        </if>
+        order by bookname, bookid
+        Limit #{startIdx}, #{size}
+        <!--  Limit ${(page - 1) * size}, #{size}
+        -->
+    </select>
+
+    <update id ="updateBook">
+        update book
+        <set>
+            <if test = "bookName != null and bookName != ''">
+                bookname = #{bookName}
+            </if>
+            <if test = "publisher != null and publisher != ''">
+                , publisher = #{publisher}
+            </if>
+            <if test = "price != null and price != '' and price >= 0">
+                , price = #{price}
+            </if>
+        </set>
+        where bookid = #{bookId}
+    </update>
+
+    <delete id = "delBook">
+        delete from book
+        where bookid = #{bookId}
+        and publisher = #{publisher}
+
+    </delete>
+
+
+</mapper>
