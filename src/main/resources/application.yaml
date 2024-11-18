@@ -15,6 +15,7 @@ mybatis:
 
 springdoc:
   swagger-ui:
-    defaultModelsExpandDepth: -1
     defaultModelExpandDepth: 10
+    display-request-duration: true
+    operations-shorter: method
     path: /swagger
