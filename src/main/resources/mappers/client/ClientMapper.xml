@@ -3,8 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.green.madang.client.ClientMapper">
-    <insert id = "insOrders">
-
+    <insert id = "insOrders" useGeneratedKeys="true" keyProperty="orderId">
+<!--
+방금 insert한 튜플의 PK의 값을 얻는 방법
+    useGeneratedKeys, keyProperty 속성은 MySQL(MariaDB)에서만 작동한다.
+    즉, auto_increment에서만 된다.
+    useGeneratedKeys="true"는 PK값 가져오는 것을 활성화 하겠다,
+    keyProperty는 전달받은 파라미터의 멤버필드 이름을 작성한다.
+    그러면 그 파라미터에 PK값이 담기게 된다.
+    파라미터는 레퍼런스 변수이기 때문에 호출한 곳에서 호출완료 후 PK값을 확인할 수 있다.
+    -->
         INSERT INTO orders
         (custid, bookid, saleprice, orderdate)
         SELECT #{custId}, bookid, price, current_date

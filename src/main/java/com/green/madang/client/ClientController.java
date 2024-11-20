@@ -27,7 +27,7 @@ public class ClientController {
     @Operation(summary = "책 주문")
     public MyResponse<Integer> insOrders (@RequestBody OrderPostReq p) {// Json 형태로 넘어올 때는 RequestBody. 이거 제이슨으로 넘어온다고 알려주는 것
         int result = service.insOrders(p);
-        MyResponse<Integer> response =  new MyResponse<>("주문이 등록되었습니다.", result);
+        MyResponse<Integer> response =  new MyResponse<>(p.getOrderId()+"번 주문이 등록되었습니다.", result);
        return response;
     }
 
